@@ -1,0 +1,11 @@
+﻿*.suo
+[Oo]bj/
+[Bb]in/
+TestResults/
+.nuget/
+packages/
+artifacts/
+project.lock.json
+/.vs/
+*.psess
+*.user
