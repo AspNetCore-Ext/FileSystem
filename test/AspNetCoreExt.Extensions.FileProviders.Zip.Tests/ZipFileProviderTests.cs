@@ -63,7 +63,6 @@ namespace AspNetCoreExt.Extensions.FileProviders.Zip.Tests
 
         [Theory]
         [InlineData("/unknwon")]
-        [InlineData("/file1.txt/")]
         [InlineData("/")]
         [InlineData("")]
         [InlineData(null)]
@@ -110,6 +109,8 @@ namespace AspNetCoreExt.Extensions.FileProviders.Zip.Tests
             Assert.Equal(1, entries.Count());
             Assert.Equal(new string[] { "File_empty.txt" }, entries.Select(f => f.Name));
             Assert.Equal(new bool[] { false }, entries.Select(f => f.IsDirectory));
+
+            Assert.Equal(1, provider.GetDirectoryContents("/Dir1/Dir1.1/").Count());     // The a tailing slash
         }
 
         [Fact]

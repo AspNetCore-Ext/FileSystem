@@ -113,20 +113,30 @@ namespace AspNetCoreExt.Extensions.FileProviders.Zip
             var builder = new StringBuilder(subpath.Length);
 
             // Relative paths starting with a leading slash okay
+            var start = 0;
+            var count = subpath.Length;
+
             if (subpath.StartsWith("/", StringComparison.Ordinal))
             {
-                builder.Append(subpath, 1, subpath.Length - 1);
-            }
-            else
-            {
-                builder.Append(subpath);
+                start++;
+                count--;
             }
 
-            for (var i = 0; i < builder.Length; i++)
+            if (subpath.EndsWith("/", StringComparison.Ordinal))
             {
-                if (builder[i] == '\\')
+                count--;
+            }
+
+            if (count > 0)
+            {
+                builder.Append(subpath, start, count);
+
+                for (var i = 0; i < builder.Length; i++)
                 {
-                    builder[i] = '/';
+                    if (builder[i] == '\\')
+                    {
+                        builder[i] = '/';
+                    }
                 }
             }
 
